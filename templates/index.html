@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+LookingGlass originally by Telephone: http://iamtelephone.com
+Python backend rewrite by Brandon Whaley, Ramnode LLC, http://ramnode.com
+-->
+  <head>
+    <meta charset="utf-8">
+    <title>{{ site_name }} - Looking Glass</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LookingGlass - Open source Python looking glass">
+    <meta name="author" content="Telephone">
+
+    <!-- IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Styles -->
+    <link href="{{ url_for('static', filename='css/' + theme + '.min.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Container -->
+    <div class="container">
+
+      <!-- Header -->
+      <header class="header nohighlight" id="overview">
+        <div class="row">
+          <div class="span12">
+            <h1><a id="title" href="{{ url_for('index') }}">{{ site_name }}</a></h1>
+          </div>
+        </div>
+      </header>
+
+      <!-- Network Information -->
+      <section id="information">
+        <div class="row">
+          <div class="span12">
+            <div class="well">
+              <span id="legend">Network information</span><!-- IE/Safari dislike <legend> out of context -->
+              <p>Server Location: <b>{{ site_location }}</b></p>
+              <div style="margin-left: 10px;">
+                <p>Test IPv4: {{ test_ipv4 }}</p>
+                <p>Test IPv6: {{ test_ipv6 }}</p>
+                <p>Test files: {% for test_file in test_files %}<a href="{{ url_for('static', filename=test_file + '.test') }}" id="{{ test_file }}">{{ test_file }}</a> {% endfor %}
+                </p>
+              </div>
+              <p>Your IP Address: <b><a href="#tests" id="userip">{{ request.remote_addr }}</a></b></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Network Tests -->
+      <section id="tests">
+        <div class="row">
+          <div class="span12">
+            <form class="well form-inline" id="networktest" action="#results" method="post">
+              <fieldset>
+                <span id="legend">Network tests</span>
+                <div id="hosterror" class="control-group">
+                  <div class="controls">
+                    <input id="host" name="host" type="text" class="input-large" placeholder="Host or IP address">
+                  </div>
+                </div>
+                <select name="cmd" class="input-medium" style="margin-left: 5px;">
+                  <option value="host">host</option>
+                  <option value="mtr4">mtr</option>
+                  <option value="mtr6">mtr6</option>'
+                  <option value="ping4" selected="selected">ping</option>
+                  <option value="ping6">ping6</option>
+                  <option value="traceroute4">traceroute</option>
+                  <option value="traceroute6">traceroute6</option>
+                </select>
+                <button type="submit" id="submit" name="submit" class="btn btn-primary" style="margin-left: 10px;">Run Test</button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section id="results" style="display:none">
+        <div class="row">
+          <div class="span12">
+            <div class="well">
+              <span id="legend">Results</span>
+              <pre id="response" style="display:none"></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer nohighlight">
+        <p class="pull-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>Inspired by <a href="http://github.com/telephone/LookingGlass">LookingGlass</a></p>
+        <p>Python backend by <a href="http://ramnode.com">RamNode</a></p>
+      </footer>
+
+    </div><!-- /container -->
+
+    <!-- Javascript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/LookingGlass.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/XMLHttpRequest.js') }}"></script>
+  </body>
+</html>
