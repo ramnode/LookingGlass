@@ -1,0 +1,17 @@
+server {
+  listen 80;
+  keepalive_timeout 60;
+  server_name lg.example.com;
+  location / {
+    include uwsgi_params;
+    uwsgi_param UWSGI_CHDIR /home/lg/LookingGlass/;
+    uwsgi_param UWSGI_PYHOME /home/lg/.virtualenvs/LookingGlass/;
+    uwsgi_param UWSGI_MODULE wsgi;
+    uwsgi_param UWSGI_CALLABLE app;
+    uwsgi_pass 127.0.0.1:3031;
+  }
+  location /static/ {
+    alias /home/lg/LookingGlass/static/;
+    autoindex off;
+  }
+}

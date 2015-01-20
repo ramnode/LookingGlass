@@ -1,0 +1,17 @@
+[uwsgi]
+plugins = python
+gid = lg
+uid = www-data
+vhost = true
+logdate
+socket = 127.0.0.1:3031
+master = true
+processes = 16
+harakiri = 20
+limit-as = 256
+wsgi-file = /home/lg/LookingGlass/wsgi.py
+virtualenv = /home/lg/.virtualenvs/LookingGlass
+chdir = /home/lg/LookingGlass
+env = CONFIG_FILE=instance/my.cfg
+memory-report
+no-orphans
