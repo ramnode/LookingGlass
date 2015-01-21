@@ -10,3 +10,9 @@ The design is much simpler than the PHP original, leaving rate limiting up to th
 * Python 2.7 (may work on earlier/later versions, not currently tested)
 * The ping, mtr, traceroute, and host utilities.  Other utilities may be added later.
 * A method of serving a python WSGI application.  Example configs for nginx/uwsgi are included
+
+##Setup Instructions (nginx/uwsgi)
+
+##Customizing
+custom configs
+test files
