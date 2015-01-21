@@ -13,13 +13,13 @@ The design is much simpler than the PHP original, leaving rate limiting up to th
 * A method of serving a python WSGI application.  Example configs for nginx/uwsgi are included
 
 ## Setup Instructions
-Example configuration files have been included for nginx and uwsgi in the `example\_configs` folder.
+Example configuration files have been included for nginx and uwsgi in the `example_configs` folder.
 
 ### nginx
-The nginx config will need to be modified to change the `server\_name` directive and any paths that differ from your installation.  Copy or link it to your sites-enabled folder.
+The nginx config will need to be modified to change the `server_name` directive and any paths that differ from your installation.  Copy or link it to your sites-enabled folder.
 
 ### uwsgi
-The uwsgi config's ini file will need to have paths modified.  Pay special attention to the `CONFIG\_FILE` `env` directive as this is the file you must edit to change theme, set test IPs, and change the title/location/test files.  More on this in the next section.  The last file you'll need for uwsgi is the `wsgi.py` file in `example\_configs/uwsgi`.  Copy this to the same location as lookingglass.py and edit the shebang line to reflect your virtualenv.
+The uwsgi config's ini file will need to have paths modified.  Pay special attention to the `CONFIG_FILE` `env` directive as this is the file you must edit to change theme, set test IPs, and change the title/location/test files.  More on this in the next section.  The last file you'll need for uwsgi is the `wsgi.py` file in `example_configs/uwsgi`.  Copy this to the same location as lookingglass.py and edit the shebang line to reflect your virtualenv.
 
 ### lookingglass
 The default configuration file is in `instance/default.cfg`.  Copy this to another cfg file \(`instance/lg.cfg` for example\) and ensure this path is specified in your lg.ini uwsgi config.  Edit this file to customize your installation.  You will need to create test files that you reference.  For example, if you have a 100MB and 1000MB test file specified in your config, you would use the following commands to create them:
