@@ -29,5 +29,13 @@ The default configuration file is in `instance/default.cfg`.  Copy this to anoth
 
 Keep in mind that the above files count in SI units, not IEC.  The result is that 1Kilobyte==1000Bytes instead of 1024, as you may expect.  To get that behavior, use MiB instead of MB.
 
+## API
+The API is extremely simple.  There are two encoding methods, raw and json.  Raw output is still escaped \(flask.escape\) for safety.  JSON output uses JSON escapes.  All endpoints take only variable, `host`, in the query string.  The value is validated and passed to the underlying function.  Example endpoints:
+
+    /raw/ping4
+    /json/mtr6
+    /json/host
+    /raw/host
+
 ## License
 Code is licensed under MIT Public License.
