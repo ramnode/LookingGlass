@@ -8,6 +8,7 @@ server {
     uwsgi_param UWSGI_PYHOME /home/lg/.virtualenvs/LookingGlass/;
     uwsgi_param UWSGI_MODULE wsgi;
     uwsgi_param UWSGI_CALLABLE app;
+    uwsgi_buffering off;
     uwsgi_pass 127.0.0.1:3031;
   }
   location /static/ {
