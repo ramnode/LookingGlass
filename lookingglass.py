@@ -59,7 +59,6 @@ def api_host(encoder):
         target
     )
 
-#mtr, mtr6, ping, ping6, traceroute, traceroute6
 @app.route("/<encoder>/mtr<version>")
 def api_mtr(encoder, version):
     target = get_and_validate_host(flask.request)
@@ -109,6 +108,7 @@ def api_traceroute(encoder, version):
         sh.traceroute,
         '-{0}'.format(version),
         target,
+        A=True,
         w=2
     )
     
