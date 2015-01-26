@@ -48,11 +48,21 @@ def execute(encoder, command, *args, **kwargs):
     else:
         return flask.escape("Error, invalid encoder")
 
+def error_response(encoder, error):
+    """Responds with <error> text based on <encoder>"""
+    if encoder == "json":
+        return flask.jsonify({
+            "output": error,
+            "status": 1
+        })
+    else:
+        return flask.escape(error)
+
 @app.route("/<encoder>/host")
 def api_host(encoder):
     target = get_and_validate_host(flask.request)
     if target is None:
-        return execute(encoder, "Error, invalid host", 1)
+        return error_response(encoder, "Error, invalid host")
     return execute(
         encoder,
         sh.host,
@@ -63,9 +73,9 @@ def api_host(encoder):
 def api_mtr(encoder, version):
     target = get_and_validate_host(flask.request)
     if target is None:
-        return execute(encoder, "Error, invalid host", 1)
+        return error_response(encoder, "Error, invalid host")
     if version not in ('4', '6'):
-        return execute(encoder, "Error, invalid ip version")
+        return error_response(encoder, "Error, invalid ip version")
     return execute(
         encoder,
         sh.mtr,
@@ -80,13 +90,13 @@ def api_mtr(encoder, version):
 def api_ping(encoder, version):
     target = get_and_validate_host(flask.request)
     if target is None:
-        return execute(encoder, "Error, invalid host", 1)
+        return error_response(encoder, "Error, invalid host")
     if version == '4':
         command = sh.ping
     elif version == '6':
         command = sh.ping6
     else:
-        return execute(encoder, "Error, invalid ip version")
+        return error_response(encoder, "Error, invalid ip version")
     return execute(
         encoder,
         command,
@@ -100,9 +110,9 @@ def api_ping(encoder, version):
 def api_traceroute(encoder, version):
     target = get_and_validate_host(flask.request)
     if target is None:
-        return execute(encoder, "Error, invalid host", 1)
+        return error_response(encoder, "Error, invalid host")
     if version not in ('4', '6'):
-        return execute(encoder, "Error, invalid ip version")
+        return error_response(encoder, "Error, invalid ip version")
     return execute(
         encoder,
         sh.traceroute,
