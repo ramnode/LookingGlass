@@ -9,6 +9,23 @@ read -p "Location short-code (us): " lg_loc_short
 [ -z "$lg_loc_short" ] && lg_loc_short=us
 read -p "Location long name (United States): " lg_loc_long
 [ -z "$lg_loc_long" ] && lg_loc_long="United States"
+read -p "Would you like to list additional looking glass links in the sidebar? (n): " add_additional_lg
+lg_host_description_list=""
+add_additional_lg=${add_additional_lg,,}    # tolower
+if [[ $add_additional_lg =~ ^(yes|y)$ ]]
+then
+    read -p "FQDN for additional Looking Glass (ex: lg.sea.ramnode.com): " new_hostname
+    lg_host_description_list+="["
+    while [ "$new_hostname" != "" ]
+    do
+        read -p "Hyperlink text displayed on the sidebar (ex: Seattle, WA): " hyperlink_text
+        lg_host_description_list+="(\"http://$new_hostname/\", \"$hyperlink_text\"), "
+        read -p "FQDN for additional Looking Glass (ex: lg.sea.ramnode.com): " new_hostname
+    done
+    lg_host_description_list="${lg_host_description_list:0:-2}]"
+else
+    lg_host_description_list+="(\"http://$lg_host/\", \"$lg_loc_long\")]"
+fi
 read -p "Site Name (My Company - $lg_loc_long): " lg_site_name
 [ -z "$lg_site_name" ] && lg_site_name="My Company - $lg_loc_long"
 best_guess_ipv4=$(ip -4 addr show | awk '/inet/ {print $2}' | tail -1 | cut -d/ -f1)
@@ -55,6 +72,7 @@ sed -i -e "s|SITE_NAME=.*|SITE_NAME=\"$lg_site_name\"|" \
     -e "s|TEST_IPV4=.*|TEST_IPV4=\"$lg_test_ipv4\"|" \
     -e "s|TEST_IPV6=.*|TEST_IPV6=\"$lg_test_ipv6\"|" \
     -e "s|TEST_FILES=.*|TEST_FILES=$lg_test_file_string|" \
+    -e "s|ADDITIONAL_LG_LIST=.*|ADDITIONAL_LG_LIST=$lg_host_description_list|" \
     $lg_code_path/instance/${lg_loc_short}.cfg
 
 for test_file in ${lg_test_files[*]}; do

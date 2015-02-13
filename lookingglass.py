@@ -131,7 +131,8 @@ def index():
         site_location = app.config["SITE_LOCATION"],
         test_ipv4 = app.config["TEST_IPV4"],
         test_ipv6 = app.config["TEST_IPV6"],
-        test_files = app.config["TEST_FILES"]
+        test_files = app.config["TEST_FILES"],
+        additional_lgs = app.config["ADDITIONAL_LG_LIST"]
     )
 
 if __name__ == "__main__":

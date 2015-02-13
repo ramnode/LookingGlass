@@ -35,7 +35,7 @@ Python backend rewrite by Brandon Whaley, Ramnode LLC, http://ramnode.com
       <!-- Network Information -->
       <section id="information">
         <div class="row">
-          <div class="span12">
+          <div class="span8">
             <div class="well">
               <span id="legend">Network information</span><!-- IE/Safari dislike <legend> out of context -->
               <p>Server Location: <b>{{ site_location }}</b></p>
@@ -48,7 +48,16 @@ Python backend rewrite by Brandon Whaley, Ramnode LLC, http://ramnode.com
               <p>Your IP Address: <b><a href="#tests" id="userip">{{ request.remote_addr }}</a></b></p>
             </div>
           </div>
-        </div>
+          <div class=span4>
+            <div class=well>
+              <span id=legend>
+                More Locations
+              </span>
+              {% for lg_url, lg_url_description in additional_lgs %}
+                <p><a href="{{ lg_url }}">{{ lg_url_description }}</a></p>
+              {% endfor %}
+            </div>
+          </div>
       </section>
 
       <!-- Network Tests -->
