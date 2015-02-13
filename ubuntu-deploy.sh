@@ -10,21 +10,19 @@ read -p "Location short-code (us): " lg_loc_short
 read -p "Location long name (United States): " lg_loc_long
 [ -z "$lg_loc_long" ] && lg_loc_long="United States"
 read -p "Would you like to list additional looking glass links in the sidebar? (n): " add_additional_lg
-lg_host_description_list=""
-add_additional_lg=${add_additional_lg,,}    # tolower
+lg_host_description_list="[]"
+add_additional_lg=${add_additional_lg,,}
 if [[ $add_additional_lg =~ ^(yes|y)$ ]]
 then
-    read -p "FQDN for additional Looking Glass (ex: lg.sea.ramnode.com): " new_hostname
-    lg_host_description_list+="["
+    read -p "FQDN for additional Looking Glass? (If no more to add, leave blank) (ex: $lg_host): " new_hostname
+    lg_host_description_list="["
     while [ "$new_hostname" != "" ]
     do
-        read -p "Hyperlink text displayed on the sidebar (ex: Seattle, WA): " hyperlink_text
-        lg_host_description_list+="(\"http://$new_hostname/\", \"$hyperlink_text\"), "
-        read -p "FQDN for additional Looking Glass (ex: lg.sea.ramnode.com): " new_hostname
+        read -p "Hyperlink text displayed on the sidebar (ex: $lg_loc_long): " hyperlink_text
+        lg_host_description_list+="(\"//$new_hostname/\", \"$hyperlink_text\"), "
+        read -p "FQDN for additional Looking Glass (If no more to add, leave blank) (ex: $lg_host): " new_hostname
     done
     lg_host_description_list="${lg_host_description_list:0:-2}]"
-else
-    lg_host_description_list+="(\"http://$lg_host/\", \"$lg_loc_long\")]"
 fi
 read -p "Site Name (My Company - $lg_loc_long): " lg_site_name
 [ -z "$lg_site_name" ] && lg_site_name="My Company - $lg_loc_long"
@@ -37,7 +35,7 @@ read -p "Test IPv6 address ($best_guess_ipv6): " lg_test_ipv6
 echo "Important!  These test file names must be valid values for the 'seek' parameter of 'dd'!"
 read -p "Space delimited test files (100MB 1000MB): " -a lg_test_files
 [ -z "$lg_test_files" ] && lg_test_files=(100MB 1000MB)
-lg_test_file_string="TEST_FILES=[\"$(echo -n ${lg_test_files[*]}| sed 's/ /","/g')\"]"
+lg_test_file_string="[\"$(echo -n ${lg_test_files[*]}| sed 's/ /","/g')\"]"
 
 apt-get update && apt-get install python-pip python-dev virtualenvwrapper git nginx uwsgi mtr traceroute bind9-host uwsgi-plugin-python || (echo "Unable to install requirements" && exit 1)
 
