@@ -16,7 +16,7 @@ if [[ $add_additional_lg =~ ^(yes|y)$ ]]
 then
     read -p "FQDN for additional Looking Glass? (If no more to add, leave blank) (ex: $lg_host): " new_hostname
     lg_host_description_list="["
-    while [ "$new_hostname" != "" ]
+    while [ -n "$new_hostname" ]
     do
         read -p "Hyperlink text displayed on the sidebar (ex: $lg_loc_long): " hyperlink_text
         lg_host_description_list+="(\"//$new_hostname/\", \"$hyperlink_text\"), "
