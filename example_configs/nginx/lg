@@ -1,5 +1,5 @@
 server {
-  listen 80;
+  listen [::]:80 ipv6only=off;
   keepalive_timeout 60;
   server_name lg.example.com;
   location / {

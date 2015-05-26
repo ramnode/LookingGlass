@@ -55,6 +55,7 @@ su - $lg_user -c "$lg_venv_path/bin/pip install -r $lg_code_path/requirements.tx
 cp $lg_code_path/example_configs/nginx/lg /etc/nginx/sites-available/lg
 sed -i -e "s|server_name .*;|server_name $lg_host;|" -e "s|/home/lg|$lg_user_home|g" /etc/nginx/sites-available/lg
 ln -s /etc/nginx/sites-available/lg /etc/nginx/sites-enabled/lg
+rm -f /etc/nginx/sites-enabled/default
 
 cp $lg_code_path/example_configs/uwsgi/lg.ini /etc/uwsgi/apps-available/lg.ini
 sed -i -e "s|id = lg|id = $lg_user|g" -e "s|/home/lg|$lg_user_home|g" -e "s|instance/my.cfg|instance/${lg_loc_short}.cfg|" /etc/uwsgi/apps-available/lg.ini
