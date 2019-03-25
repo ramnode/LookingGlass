@@ -1,8 +1,9 @@
-Flask==0.10.1
-Jinja2==2.7.3
-MarkupSafe==0.23
-Werkzeug==0.9.6
+Click==7.0
+Flask==1.0.2
+Jinja2==2.10
+MarkupSafe==1.1.1
+Werkzeug==0.15.1
 argparse==1.2.1
-itsdangerous==0.24
-sh==1.11
+itsdangerous==1.1.0
+sh==1.12.14
 wsgiref==0.1.2
